@@ -12,13 +12,12 @@ import {
   import {Header} from '../Header'
 
   class RebrandlyLinks extends Component {
-   links=[
-       {
-           "title":"Link ijj4f",
-           "destination": "https://www.youtube.com/watch?v=3VmtibKpmXI",
-           "shortUrl": "rebrand.ly/ijjj4f"
-       }
-   ]
+      constructor(props){
+          super(props)
+          this.state={
+              links:[]
+          }
+      }
     render(){
         return (
             <div>
@@ -32,7 +31,7 @@ import {
     				</TableHeader>
                     <TableBody>
                         {
-                            this.links.mpas(link =>{
+                            this.state.links.map(link =>{
                                 return (
                                     <TableRow>
                                         <TableHeaderColumn>{link.title}</TableHeaderColumn>
@@ -51,13 +50,25 @@ import {
 
 
     componentWillMount(){
+        console.log(sessionStorage.getItem('apikey'))
         fetch('https://api.rebrandly.com/v1/links', 
         {
             headers: {
                         apikey: sessionStorage.getItem('apikey') 
                 }
         })
-        .then()
+        .then(response=>{
+            if(response.ok){
+                response.json()
+                .then(data =>{
+                    this.setState({
+                        links:data
+                    })
+                })
+            }
+            console.log('data',response)
+        })
+        
     }
   }    
 export default RebrandlyLinks ;

@@ -6,7 +6,9 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
-
+ 
+//importing react router	
+import {withRouter} from 'react-router';
 
 class Header extends Component{
 	constructor(props){
@@ -42,13 +44,14 @@ class Header extends Component{
 		}
 	componentWillMount(){
 		this.setState({
-			email:sessionStorage.getItem('email')
+			apikey:sessionStorage.getItem('apikey')
 			})
-		}
+	}
 	signOut() {
 		sessionStorage.clear();
-		this.props.history.push('/')
+		console.log(this.props.history)
+		this.props.history.push('/login')
  	}
 }
 	
-export default Header; 
+export default withRouter(Header) 

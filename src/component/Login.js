@@ -24,7 +24,7 @@ class Login extends Component{
 	constructor(props){
 		super(props)
 		this.state= {
-			email: 'ram', 
+			email: '', 
 			apikey: ''
 		}
 	}
@@ -32,10 +32,6 @@ class Login extends Component{
 		return(
        <div style={this.aligncenter}>
         <Card style={this.cardWidth}>
-        <CardHeader
-            title="React"
-            subtitle="New world of react"
-          />
           <CardTitle title="Login"/>
           <CardText>
             <TextField  
@@ -67,16 +63,19 @@ handleemail(e){
 
 handlepassword(a){
   this.setState({apikey:a.target.value})
+  console.log(a.target.value)
 }
 
 submitForm(){
   this.validate_apikey(this.state.apikey)
   .then((response) =>{
+    console.log(response);
     if (response.ok){
       return response.json()
       .then((data)=>{
         if(data.email === this.state.email){
           sessionStorage.setItem("apikey",this.state.apikey)
+          console.log(this.state.apikey)
           this.props.history.push("/dashboard")
         }
         else{
@@ -103,9 +102,10 @@ component_willmount(){
 }
 
 validate_apikey(apikey){
+  console.log(apikey, 'apikey')
   return fetch('https://api.rebrandly.com/v1/account',
   {
-    header:{
+    headers:{
       apikey:apikey
     }
   }) 
