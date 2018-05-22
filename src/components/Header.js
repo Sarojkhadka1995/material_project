@@ -10,6 +10,9 @@ import FlatButton from 'material-ui/FlatButton';
 //importing react router	
 import {withRouter} from 'react-router';
 
+//importing links
+import {Link} from 'react-router-dom'
+
 class Header extends Component{
 	constructor(props){
 		super(props)
@@ -34,7 +37,8 @@ class Header extends Component{
 					<MenuItem>About React</MenuItem>
 					<MenuItem>Tutorial</MenuItem>
 					<MenuItem>Documentation</MenuItem>
-					<MenuItem>Links</MenuItem>
+					<MenuItem><Link to="/links">Links</Link></MenuItem>
+					<MenuItem><Link to="/links/new">Create link</Link></MenuItem>
 				</Drawer>
 			</div>
 		)
